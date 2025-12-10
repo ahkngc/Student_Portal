@@ -41,3 +41,10 @@ class StudentManager:
         with open(self.filename, "w") as f:
             for s in self.students:
                 f.write(f"{s.id},{s.email},{s.password},{s.name},{s.age},{s.class_},{s.phone}\n")
+
+ # Issue 9
+    def get_student_by_id(self, student_id):
+        for s in self.students:
+            if s.id == student_id:
+                return s
+        return None
