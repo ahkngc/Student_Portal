@@ -48,3 +48,11 @@ class StudentManager:
             if s.id == student_id:
                 return s
         return None
+
+
+
+    def login_student(self, email, password):
+        for s in self.students:
+            if s.email == email and s.password == password:
+                return s
+        return None
