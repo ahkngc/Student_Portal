@@ -12,7 +12,7 @@ class Student:
         self.age = age
         self.class_ = class_
         self.phone = phone
-
+    
          # Issue 6
     def update_info(self, name, phone):
         self.name = name
@@ -36,3 +36,8 @@ class StudentManager:
                         students.append(Student(sid, email, pwd, name, age, cls, phone))
         return students        
         
+         # Issue 8
+    def save_students(self):
+        with open(self.filename, "w") as f:
+            for s in self.students:
+                f.write(f"{s.id},{s.email},{s.password},{s.name},{s.age},{s.class_},{s.phone}\n")
