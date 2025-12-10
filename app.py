@@ -12,3 +12,7 @@ class Student:
         self.age = age
         self.class_ = class_
         self.phone = phone
+         # Issue 6
+    def update_info(self, name, phone):
+        self.name = name
+        self.phone = phone
