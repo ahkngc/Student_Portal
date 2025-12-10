@@ -13,12 +13,12 @@ class Student:
         self.class_ = class_
         self.phone = phone
 
-
-
-
-
-
-
+         # Issue 6
+    def update_info(self, name, phone):
+        self.name = name
+        self.phone = phone
+        
+        
 #issue 7
 class StudentManager:
     def __init__(self, filename="students.txt"):
