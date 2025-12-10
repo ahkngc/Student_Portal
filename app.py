@@ -56,3 +56,10 @@ class StudentManager:
             if s.email == email and s.password == password:
                 return s
         return None
+    
+
+
+
+class GradeManager:
+    def __init__(self, filename="grades.txt"):
+        self.filename = filename
