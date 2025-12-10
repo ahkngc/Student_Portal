@@ -63,3 +63,19 @@ class StudentManager:
 class GradeManager:
     def __init__(self, filename="grades.txt"):
         self.filename = filename
+
+
+    def read_grades(self, student_id):
+        grades = {}
+        numeric_scores = []
+        if os.path.exists(self.filename):
+            with open(self.filename, "r") as f:
+                for line in f:
+                    parts = line.strip().split(",")
+                    if parts[0] == student_id:
+                        for item in parts[1:]:
+                            subject, score = item.split("=")
+                            grades[subject] = int(score)
+                            numeric_scores.append(int(score))
+                        break
+        return grades, numeric_scores
