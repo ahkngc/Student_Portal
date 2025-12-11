@@ -124,4 +124,12 @@ class GradeManager:
                 student_manager.save_students()
                 return redirect("/?page=profile")
             return render_template("index.html", page="profile", student=student)
+        # Grades Logic
+        elif page=="grades":
+            if student is None:
+                return redirect("/?page=login")
+            grades, numeric_scores = grade_manager.read_grades(student.id)
+            avg_grade = grade_manager.calculate_avg_grade(numeric_scores)
+            grades_letter = {sub: grade_manager.convert_grade(score) for sub,score in grades.items()}
+            return render_template("index.html", page="grades", student=student, grades=grades_letter, avg_grade=avg_grade)
         return "Page not found"
