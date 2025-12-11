@@ -95,4 +95,25 @@ class GradeManager:
     def get_current_student():
         if "id" not in session:
             return None
-        return student_manager.get_student_by_id(session["id"])
+        return StudentManager.get_student_by_id(session["id"])
+    @app.route("/", methods=["GET","POST"])
+    def index():
+        page = request.args.get("page","login")
+        student = get_current_student()
+
+        # Login Logic
+        if page=="login":
+            error = ""
+            if request.method=="POST":
+                email = request.form.get("email","").strip()
+                password = request.form.get("password","").strip()
+                s = StudentManager.login_student(email,password)
+                if s:
+                    session["id"] = s.id
+                    return redirect("/?page=profile")
+                else:
+                    error = "Incorrect Email or Password"
+            return render_template("index.html", page="login", error=error)
+        
+        # Placeholder for other pages
+        return "Page not found"
