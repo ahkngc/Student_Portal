@@ -92,3 +92,8 @@ class GradeManager:
             avg = sum(scores)/len(scores)
             return self.convert_grade(int(avg))
         return "N/A"
+    def get_current_student():
+        if "id" not in session:
+            return None
+        student = StudentManager.get_student_by_id(session["id"])
+        return student
