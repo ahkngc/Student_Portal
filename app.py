@@ -101,7 +101,6 @@ class GradeManager:
         page = request.args.get("page","login")
         student = get_current_student()
 
-        # Login Logic
         if page=="login":
             error = ""
             if request.method=="POST":
@@ -115,5 +114,4 @@ class GradeManager:
                     error = "Incorrect Email or Password"
             return render_template("index.html", page="login", error=error)
         
-        # Placeholder for other pages
         return "Page not found"
