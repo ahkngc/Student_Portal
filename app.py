@@ -121,7 +121,7 @@ class GradeManager:
                 name = request.form.get("name",student.name).strip()
                 phone = request.form.get("phone",student.phone).strip()
                 student.update_info(name,phone)
-                student_manager.save_students()
+                StudentManager.save_students()
                 return redirect("/?page=profile")
             return render_template("index.html", page="profile", student=student)
         # Grades Logic
@@ -132,4 +132,16 @@ class GradeManager:
             avg_grade = grade_manager.calculate_avg_grade(numeric_scores)
             grades_letter = {sub: grade_manager.convert_grade(score) for sub,score in grades.items()}
             return render_template("index.html", page="grades", student=student, grades=grades_letter, avg_grade=avg_grade)
-        return "Page not found"
+        else:   
+            return "Page not found"
+        
+
+
+@app.route("/logout")
+def logout():
+    session.pop("id", None)
+    return redirect("/?page=login")
+
+
+if __name__=="__main__":
+    app.run(debug=True)
