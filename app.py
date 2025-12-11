@@ -79,3 +79,16 @@ class GradeManager:
                             numeric_scores.append(int(score))
                         break
         return grades, numeric_scores
+    def convert_grade(self, score):
+        if score >= 95: return "A+"
+        elif score >= 90: return "A"
+        elif score >= 80: return "B"
+        elif score >= 70: return "C"
+        elif score >= 60: return "D"
+        else: return "F"
+
+    def calculate_avg_grade(self, scores):
+        if scores:
+            avg = sum(scores)/len(scores)
+            return self.convert_grade(int(avg))
+        return "N/A" 
