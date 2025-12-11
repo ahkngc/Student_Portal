@@ -113,5 +113,15 @@ class GradeManager:
                 else:
                     error = "Incorrect Email or Password"
             return render_template("index.html", page="login", error=error)
-        
+        # Profile Logic
+        elif page=="profile":
+            if student is None:
+                return redirect("/?page=login")
+            if request.method=="POST":
+                name = request.form.get("name",student.name).strip()
+                phone = request.form.get("phone",student.phone).strip()
+                student.update_info(name,phone)
+                student_manager.save_students()
+                return redirect("/?page=profile")
+            return render_template("index.html", page="profile", student=student)
         return "Page not found"
