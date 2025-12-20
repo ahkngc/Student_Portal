@@ -120,5 +120,30 @@ The system is built using Flask with the **App Factory Pattern** and **Blueprint
 
 ---
 
+
 ## 📂 Project Structure (Overview)
+
+```
+
+
+## ▶️ How to Run the Project Locally
+
+```bash
+# create venv
+python -m venv .venv
+.venv\Scripts\activate
+
+# install dependencies
+pip install -r requirements.txt
+
+# run the app
+python app.py
+
+# seed demo data (in another terminal)
+flask --app app.py seed
+
+---
+
+
+
 
