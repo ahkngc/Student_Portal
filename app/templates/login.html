@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card auth-card">
+  <h1>Login</h1>
+  <p class="muted">Demo accounts:</p>
+  <ul class="muted">
+    <li>student1@demo.com / 1234</li>
+    <li>student2@demo.com / 1234</li>
+    <li>instructor@demo.com / 1234</li>
+  </ul>
+
+  <form method="post">
+    <label>Email</label>
+    <input name="email" type="email" required>
+
+    <label>Password</label>
+    <input name="password" type="password" required>
+
+    <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+{% endblock %}

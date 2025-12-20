@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title or "Student Portal" }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Student Portal</div>
+
+    {% if user %}
+      <nav class="nav">
+        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('courses.courses_page') }}">Courses</a>
+        <a href="{{ url_for('grades.grades_page') }}">Grades</a>
+        <a href="{{ url_for('announcements.announcements_page') }}">Announcements</a>
+        <a href="{{ url_for('profile.profile_page') }}">Profile</a>
+        <a href="{{ url_for('search.search_page') }}">Search</a>
+      </nav>
+
+      <form method="post" action="{{ url_for('auth.logout') }}" class="logout">
+        <span class="muted">{{ user.name }} ({{ user.role }})</span>
+        <button class="btn btn-outline" type="submit">Logout</button>
+      </form>
+    {% endif %}
+  </header>
+
+  <main class="container">
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+      {% if msgs %}
+        <div class="alerts">
+          {% for c,m in msgs %}
+            <div class="alert alert-{{c}}">{{m}}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

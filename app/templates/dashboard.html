@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+{% if role == "student" %}
+  <div class="grid">
+    <div class="card">
+      <h3>Enrolled Courses</h3>
+      <div class="big">{{ enrolled_count }}</div>
+    </div>
+    <div class="card">
+      <h3>Recent Announcements</h3>
+      <div class="big">{{ recent_announcements|length }}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Recent Grades</h2>
+    {% if recent_grades %}
+      <table>
+        <thead><tr><th>Course ID</th><th>Item</th><th>Score</th></tr></thead>
+        <tbody>
+          {% for g in recent_grades %}
+            <tr><td>{{ g.course_id }}</td><td>{{ g.item_name }}</td><td>{{ g.score }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="muted">No grades yet.</p>
+    {% endif %}
+  </div>
+
+{% else %}
+  <div class="grid">
+    <div class="card"><h3>Students</h3><div class="big">{{ students_count }}</div></div>
+    <div class="card"><h3>Courses</h3><div class="big">{{ courses_count }}</div></div>
+    <div class="card"><h3>Grades</h3><div class="big">{{ grades_count }}</div></div>
+    <div class="card"><h3>Announcements</h3><div class="big">{{ announcements_count }}</div></div>
+  </div>
+{% endif %}
+
+{% endblock %}
