@@ -1,13 +1,6 @@
 from flask import Flask
 from .config import Config
-from .cli import register_cli
-from .api import api_bp
-from .api.errors import register_api_error_handlers
 from .extensions import db, migrate
-from . import models
-from .extensions import login_manager
-from .models import User
-
 
 def create_app():
     app = Flask(__name__)
@@ -15,19 +8,28 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-    register_api_error_handlers(app)
-    app.register_blueprint(api_bp, url_prefix="/api/v1")
-    
-    login_manager.init_app(app)
 
+    from .auth.routes import bp as auth_bp
+    from .dashboard.routes import bp as dashboard_bp
+    from .courses.routes import bp as courses_bp
+    from .grades.routes import bp as grades_bp
+    from .announcements.routes import bp as announcements_bp
+    from .profile.routes import bp as profile_bp
+    from .search.routes import bp as search_bp
 
-    @app.get("/health")
-    def health():
-        return {"status": "ok"}
-    register_cli(app)
-    
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(dashboard_bp)
+    app.register_blueprint(courses_bp)
+    app.register_blueprint(grades_bp)
+    app.register_blueprint(announcements_bp)
+    app.register_blueprint(profile_bp)
+    app.register_blueprint(search_bp)
+
+    from .seed import seed_demo_data
+
+    @app.cli.command("seed")
+    def seed_command():
+        seed_demo_data()
+        print("✅ Seeded demo data.")
+
     return app
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
