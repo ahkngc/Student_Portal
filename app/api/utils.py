@@ -31,3 +31,41 @@ def get_json_or_error(required: bool = True):
     if not isinstance(data, dict):
         return error("JSON body must be an object", 400)
     return data
+    def success(data=None, status=200):
+    return jsonify({
+        "success": True,
+        "data": data
+    }), status
+
+
+def failure(message, status=400):
+    return jsonify({
+        "success": False,
+        "error": message
+    }), status
+
+
+def get_pagination():
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 10, type=int)
+
+    if page < 1 or per_page < 1:
+        return None
+
+    return page, per_page
+
+
+def paginate(query):
+    pagination = get_pagination()
+    if pagination is None:
+        return None, failure("Invalid pagination parameters", 400)
+
+    page, per_page = pagination
+    result = query.paginate(page=page, per_page=per_page, error_out=False)
+
+    return {
+        "items": result.items,
+        "page": page,
+        "per_page": per_page,
+        "total": result.total
+    }, None
