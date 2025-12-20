@@ -31,6 +31,17 @@ The project board is public and linked directly to the repository issues.
 https://github.com/users/ahkngc/projects/3
 
 ---
+---
+
+## 🌐 Production / Deployment
+
+This project is designed as a locally deployed web application for academic purposes.
+
+After completing the CI/CD pipeline, the project can be executed locally using the provided setup instructions.  
+No external hosting platform is required for evaluation.
+
+**Local Application Entry Point:**
+
 
 ## 📌 Project Description
 
