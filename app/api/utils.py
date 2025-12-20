@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from flask import request
+from flask import jsonify,request
 
 
 def ok(data=None, status_code: int = 200):
