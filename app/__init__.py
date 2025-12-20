@@ -1,6 +1,7 @@
 from flask import Flask
 from .config import Config
 from .extensions import db, migrate
+from . import models   
 
 def create_app():
     app = Flask(__name__)
@@ -8,6 +9,9 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    with app.app_context():
+        db.create_all()
 
     from .auth.routes import bp as auth_bp
     from .dashboard.routes import bp as dashboard_bp
@@ -30,6 +34,6 @@ def create_app():
     @app.cli.command("seed")
     def seed_command():
         seed_demo_data()
-        print("✅ Seeded demo data.")
+        print("Seeded demo data")
 
     return app
