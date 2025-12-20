@@ -6,3 +6,4 @@ from . import routes
 from . import students  
 from . import courses
 from . import enrollments
+from . import grades  
