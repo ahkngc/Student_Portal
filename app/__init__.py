@@ -1,5 +1,6 @@
 from flask import Flask
 from .config import Config
+from .cli import register_cli
 from .extensions import db, migrate
 from . import models
 
@@ -14,5 +15,6 @@ def create_app():
     @app.get("/health")
     def health():
         return {"status": "ok"}
+    register_cli(app)
 
     return app
