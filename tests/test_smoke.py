@@ -1,9 +1,5 @@
-import sys
-from pathlib import Path
+from app import create_app
 
-def test_smoke_import_app():
-    root = Path(__file__).resolve().parents[1]
-    sys.path.insert(0, str(root))
-
-    import app 
-    assert hasattr(app, "app")
+def test_app_factory_works():
+    app = create_app()
+    assert app is not None
